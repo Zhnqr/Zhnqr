@@ -186,27 +186,108 @@
         <a href="#" class="card featured">
             <div class="card-preview">
                 <iframe class="iframe-container" srcdoc='
-                    <html>
-                    <body style="margin:0; overflow:hidden; background:transparent; display:flex; justify-content:center; align-items:center; height:100vh; perspective:1000px;">
-                        <div id="glow" style="position:absolute; width:100%; height:100%; background:radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 70%);"></div>
-                        <div id="stack" style="transform-style:preserve-3d; transition: transform 0.1s ease-out; display:grid;"></div>
-                        <script>
-                            const stack = document.getElementById("stack");
-                            const text = "𝓩𝖍𝖓𝖖𝖗";
-                            for (let i = 0; i < 25; i++) {
-                                const span = document.createElement("span");
-                                span.textContent = text;
-                                span.style.cssText = `grid-column:1; grid-row:1; font-size:10vw; font-weight:900; color:${i===24 ? "white" : "#222"}; transform:translateZ(${-i}px); user-select:none; font-family:serif;`;
-                                stack.appendChild(span);
-                            }
-                            window.addEventListener("mousemove", (e) => {
-                                const x = (window.innerWidth / 2 - e.clientX) / 15;
-                                const y = (window.innerHeight / 2 - e.clientY) / 15;
-                                stack.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
-                            });
-                        </script>
-                    </body>
-                    </html>
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zhnqr Ultra 3D</title>
+    <style>
+        :root {
+            --text-color: #ffffff;
+            --depth-color: #222;
+            --accent-glow: rgba(0, 150, 255, 0.3);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #050505;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            perspective: 2000px;
+        }
+
+        /* Ambient background glow that follows mouse */
+        #bg-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+            transition: background 0.1s ease;
+        }
+
+        .stack {
+            display: grid;
+            grid-template-columns: 1fr;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        .stack span {
+            grid-row-start: 1;
+            grid-column-start: 1;
+            font-size: 15vw;
+            font-weight: 900;
+            color: var(--text-color);
+            /* The magic: each layer is pushed further back in Z-space */
+            transform: translateZ(calc(var(--layer) * 1px));
+            user-select: none;
+        }
+
+        /* Darken deeper layers to create shading */
+        .stack span:not(:last-child) {
+            color: var(--depth-color);
+            -webkit-text-stroke: 2px var(--depth-color);
+        }
+
+        /* Top layer style */
+        .stack span:last-child {
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bg-glow"></div>
+
+    <div class="stack" id="stack">
+        </div>
+
+    <script>
+        const stack = document.getElementById('stack');
+        const glow = document.getElementById('bg-glow');
+        const text = "𝓩𝖍𝖓𝖖𝖗";
+        const layerCount = 30;
+
+        // Create the 3D layers
+        for (let i = 0; i < layerCount; i++) {
+            const span = document.createElement('span');
+            span.textContent = text;
+            span.style.setProperty('--layer', -i);
+            stack.appendChild(span);
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 15;
+            const y = (window.innerHeight / 2 - e.pageY) / 15;
+
+            // Rotate the text stack
+            stack.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
+            
+            // Move the background glow to follow mouse
+            const pctX = (e.pageX / window.innerWidth) * 100;
+            const pctY = (e.pageY / window.innerHeight) * 100;
+            glow.style.background = `radial-gradient(circle at ${pctX}% ${pctY}%, var(--accent-glow) 0%, transparent 70%)`;
+        });
+    </script>
+</body>
+</html>
                 '></iframe>
             </div>
             <div class="card-content">
