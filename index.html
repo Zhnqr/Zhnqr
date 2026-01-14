@@ -7,24 +7,23 @@
 
 <style>
 :root {
-    --bg: #0a0a0a;
-    --accent: #ffffff;
-    --secondary: #666666;
-    --glass: rgba(255,255,255,0.02);
-    --border: rgba(255,255,255,0.08);
+    --bg:#0a0a0a;
+    --accent:#ffffff;
+    --secondary:#666;
+    --glass:rgba(255,255,255,.02);
+    --border:rgba(255,255,255,.08);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-body {
-    background: var(--bg);
-    color: var(--accent);
-    font-family: Inter, system-ui, sans-serif;
-    overflow-x: hidden;
+body{
+    background:var(--bg);
+    color:var(--accent);
+    font-family:Inter,system-ui,sans-serif;
+    overflow-x:hidden;
 }
 
-/* Grain */
-body::before {
+body::before{
     content:"";
     position:fixed;
     inset:0;
@@ -34,43 +33,38 @@ body::before {
     z-index:100;
 }
 
-nav {
+nav{
     padding:40px 8%;
     display:flex;
     justify-content:space-between;
 }
 
-.logo {
-    font-weight:700;
-    letter-spacing:-1px;
-}
-
-header {
+header{
     padding:80px 8% 60px;
 }
 
-.eyebrow {
+.eyebrow{
     font-size:.7rem;
     letter-spacing:4px;
     color:var(--secondary);
     text-transform:uppercase;
 }
 
-h1 {
+h1{
     font-size:clamp(2.5rem,6vw,5rem);
     font-weight:500;
     line-height:1.1;
     margin-top:20px;
 }
 
-.work-grid {
+.work-grid{
     display:grid;
     grid-template-columns:repeat(12,1fr);
     gap:24px;
     padding:0 8% 100px;
 }
 
-.card {
+.card{
     position:relative;
     grid-column:span 8;
     height:550px;
@@ -81,33 +75,31 @@ h1 {
     transition:.4s cubic-bezier(.23,1,.32,1);
 }
 
-.card:hover {
+.card:hover{
     transform:translateY(-6px);
     background:rgba(255,255,255,.04);
 }
 
-.card-preview {
+.card-preview{
     width:100%;
     height:100%;
     position:relative;
 }
 
-/* iframe FIXED */
-.iframe-container {
+.iframe-container{
     width:100%;
     height:100%;
     border:none;
     pointer-events:auto;
 }
 
-/* clickable overlay instead of wrapping <a> */
-.card-link {
+.card-link{
     position:absolute;
     inset:0;
     z-index:5;
 }
 
-.card-content {
+.card-content{
     position:absolute;
     bottom:0;
     left:0;
@@ -119,7 +111,7 @@ h1 {
     z-index:6;
 }
 
-.download-pill {
+.download-pill{
     background:white;
     color:black;
     padding:10px 20px;
@@ -128,7 +120,7 @@ h1 {
     font-weight:600;
 }
 
-footer {
+footer{
     padding:60px 8%;
     border-top:1px solid var(--border);
     display:flex;
@@ -142,7 +134,7 @@ footer {
 <body>
 
 <nav>
-    <div class="logo">zhnqr.studio</div>
+    <div style="font-weight:700;">zhnqr.studio</div>
     <div style="color:var(--secondary);font-size:.8rem;">Desktop Curation 2026</div>
 </nav>
 
@@ -153,101 +145,221 @@ footer {
 
 <main class="work-grid">
 
+<!-- CARD 1 -->
 <div class="card">
-    <a href="#" class="card-link"></a>
-
-    <div class="card-preview">
-        <iframe class="iframe-container" srcdoc="
+<a href="#" class="card-link"></a>
+<div class="card-preview">
+<iframe class="iframe-container" srcdoc="
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zhnqr Ultra 3D</title>
+    <style>
+        :root {
+            --text-color: #ffffff;
+            --depth-color: #222;
+            --accent-glow: rgba(0, 150, 255, 0.3);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #050505;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            perspective: 2000px;
+        }
+
+        /* Ambient background glow that follows mouse */
+        #bg-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+            transition: background 0.1s ease;
+        }
+
+        .stack {
+            display: grid;
+            grid-template-columns: 1fr;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        .stack span {
+            grid-row-start: 1;
+            grid-column-start: 1;
+            font-size: 15vw;
+            font-weight: 900;
+            color: var(--text-color);
+            /* The magic: each layer is pushed further back in Z-space */
+            transform: translateZ(calc(var(--layer) * 1px));
+            user-select: none;
+        }
+
+        /* Darken deeper layers to create shading */
+        .stack span:not(:last-child) {
+            color: var(--depth-color);
+            -webkit-text-stroke: 2px var(--depth-color);
+        }
+
+        /* Top layer style */
+        .stack span:last-child {
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bg-glow"></div>
+
+    <div class="stack" id="stack">
+        </div>
+
+    <script>
+        const stack = document.getElementById('stack');
+        const glow = document.getElementById('bg-glow');
+        const text = "𝓩𝖍𝖓𝖖𝖗";
+        const layerCount = 30;
+
+        // Create the 3D layers
+        for (let i = 0; i < layerCount; i++) {
+            const span = document.createElement('span');
+            span.textContent = text;
+            span.style.setProperty('--layer', -i);
+            stack.appendChild(span);
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 15;
+            const y = (window.innerHeight / 2 - e.pageY) / 15;
+
+            // Rotate the text stack
+            stack.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
+            
+            // Move the background glow to follow mouse
+            const pctX = (e.pageX / window.innerWidth) * 100;
+            const pctY = (e.pageY / window.innerHeight) * 100;
+            glow.style.background = `radial-gradient(circle at ${pctX}% ${pctY}%, var(--accent-glow) 0%, transparent 70%)`;
+        });
+    </script>
+</body>
+</html>
+"></iframe>
+</div>
+<div class="card-content">
+<div>
+<h3>Signature Ultra 3D</h3>
+<p style="color:var(--secondary);font-size:.9rem;">Physics-based depth & light</p>
+</div>
+<div class="download-pill">Get Wallpaper</div>
+</div>
+</div>
+
+<!-- CARD 2 (IDENTICAL) -->
+<div class="card">
+<a href="#" class="card-link"></a>
+<div class="card-preview">
+<iframe class="iframe-container" srcdoc="
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset='UTF-8'>
 <style>
-:root {
-    --text:#fff;
-    --depth:#222;
-    --glow:rgba(0,150,255,.3);
-}
-html,body {
-    margin:0;
-    width:100%;
-    height:100%;
-    background:#050505;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    perspective:2000px;
-    overflow:hidden;
-}
-#glow {
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-}
-.stack {
-    transform-style:preserve-3d;
-}
-.stack span {
-    position:absolute;
-    font-size:15vw;
-    font-weight:900;
-    transform:translateZ(calc(var(--z) * 1px));
-    user-select:none;
-}
-.stack span:not(:last-child) {
-    color:var(--depth);
-    -webkit-text-stroke:2px var(--depth);
-}
-.stack span:last-child {
-    color:var(--text);
-    text-shadow:0 0 20px rgba(255,255,255,.25);
-}
+html,body{margin:0;width:100%;height:100%;background:#050505;display:flex;justify-content:center;align-items:center;perspective:2000px;overflow:hidden;}
+#glow{position:absolute;inset:0;pointer-events:none;}
+.stack{transform-style:preserve-3d;}
+.stack span{position:absolute;font-size:15vw;font-weight:900;transform:translateZ(calc(var(--z) * 1px));user-select:none;}
+.stack span:not(:last-child){color:#222;-webkit-text-stroke:2px #222;}
+.stack span:last-child{color:#fff;text-shadow:0 0 20px rgba(255,255,255,.25);}
 </style>
 </head>
-
 <body>
 <div id='glow'></div>
 <div class='stack' id='stack'></div>
-
 <script>
 const stack=document.getElementById('stack');
 const glow=document.getElementById('glow');
 const text='𝓩𝖍𝖓𝖖𝖗';
-const layers=30;
-
-for(let i=0;i<layers;i++){
-    const s=document.createElement('span');
-    s.textContent=text;
-    s.style.setProperty('--z',-i);
-    stack.appendChild(s);
-}
-
+for(let i=0;i<30;i++){const s=document.createElement('span');s.textContent=text;s.style.setProperty('--z',-i);stack.appendChild(s);}
 document.addEventListener('mousemove',e=>{
-    const x=(innerWidth/2-e.clientX)/15;
-    const y=(innerHeight/2-e.clientY)/15;
-    stack.style.transform=`rotateY(${-x}deg) rotateX(${y}deg)`;
-    glow.style.background=`radial-gradient(circle at ${e.clientX/innerWidth*100}% ${e.clientY/innerHeight*100}%, var(--glow), transparent 70%)`;
+ const x=(innerWidth/2-e.clientX)/15;
+ const y=(innerHeight/2-e.clientY)/15;
+ stack.style.transform=`rotateY(${-x}deg) rotateX(${y}deg)`;
+ glow.style.background=`radial-gradient(circle at ${e.clientX/innerWidth*100}% ${e.clientY/innerHeight*100}%, rgba(0,150,255,.3), transparent 70%)`;
 });
 </script>
 </body>
 </html>
 "></iframe>
-    </div>
+</div>
+<div class="card-content">
+<div>
+<h3>Signature Ultra 3D</h3>
+<p style="color:var(--secondary);font-size:.9rem;">Physics-based depth & light</p>
+</div>
+<div class="download-pill">Get Wallpaper</div>
+</div>
+</div>
 
-    <div class="card-content">
-        <div>
-            <h3>Signature Ultra 3D</h3>
-            <p style="color:var(--secondary);font-size:.9rem;">Physics-based depth & light</p>
-        </div>
-        <div class="download-pill">Get Wallpaper</div>
-    </div>
+<!-- CARD 3 (IDENTICAL) -->
+<div class="card">
+<a href="#" class="card-link"></a>
+<div class="card-preview">
+<iframe class="iframe-container" srcdoc="
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<style>
+html,body{margin:0;width:100%;height:100%;background:#050505;display:flex;justify-content:center;align-items:center;perspective:2000px;overflow:hidden;}
+#glow{position:absolute;inset:0;pointer-events:none;}
+.stack{transform-style:preserve-3d;}
+.stack span{position:absolute;font-size:15vw;font-weight:900;transform:translateZ(calc(var(--z) * 1px));user-select:none;}
+.stack span:not(:last-child){color:#222;-webkit-text-stroke:2px #222;}
+.stack span:last-child{color:#fff;text-shadow:0 0 20px rgba(255,255,255,.25);}
+</style>
+</head>
+<body>
+<div id='glow'></div>
+<div class='stack' id='stack'></div>
+<script>
+const stack=document.getElementById('stack');
+const glow=document.getElementById('glow');
+const text='𝓩𝖍𝖓𝖖𝖗';
+for(let i=0;i<30;i++){const s=document.createElement('span');s.textContent=text;s.style.setProperty('--z',-i);stack.appendChild(s);}
+document.addEventListener('mousemove',e=>{
+ const x=(innerWidth/2-e.clientX)/15;
+ const y=(innerHeight/2-e.clientY)/15;
+ stack.style.transform=`rotateY(${-x}deg) rotateX(${y}deg)`;
+ glow.style.background=`radial-gradient(circle at ${e.clientX/innerWidth*100}% ${e.clientY/innerHeight*100}%, rgba(0,150,255,.3), transparent 70%)`;
+});
+</script>
+</body>
+</html>
+"></iframe>
+</div>
+<div class="card-content">
+<div>
+<h3>Signature Ultra 3D</h3>
+<p style="color:var(--secondary);font-size:.9rem;">Physics-based depth & light</p>
+</div>
+<div class="download-pill">Get Wallpaper</div>
+</div>
 </div>
 
 </main>
 
 <footer>
-    <div>© 2026 ZHNQR STUDIO</div>
-    <div>OPTIMIZED FOR LIVELY WALLPAPER</div>
+<div>© 2026 ZHNQR STUDIO</div>
+<div>OPTIMIZED FOR LIVELY WALLPAPER</div>
 </footer>
 
 </body>
