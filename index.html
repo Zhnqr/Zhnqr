@@ -3,177 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zhnqr | HTML Wallpapers</title>
+    <title>ZHNQR — Premium Desktop Experiences</title>
     <style>
         :root {
-            --bg: #050505;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --accent: #00a2ff;
-            --text: #ffffff;
+            --bg: #0a0a0a;
+            --accent: #ffffff;
+            --secondary: #666666;
+            --glass: rgba(255, 255, 255, 0.02);
+            --border: rgba(255, 255, 255, 0.08);
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            margin: 0;
             background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            overflow-x: hidden;
+            color: var(--accent);
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Subtle Grain Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 40px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-transform: lowercase;
         }
 
         /* Hero Section */
         header {
-            height: 40vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at center, #111 0%, #050505 100%);
+            padding: 100px 8% 60px 8%;
+            max-width: 1400px;
+        }
+
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.7rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            display: block;
         }
 
         h1 {
-            font-size: 5rem;
-            margin: 0;
-            letter-spacing: -2px;
-            background: linear-gradient(to bottom, #fff, #444);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            margin-bottom: 40px;
         }
 
-        p.subtitle {
-            color: #888;
-            font-size: 1.2rem;
-            margin-top: 10px;
-        }
-
-        /* Wallpaper Grid */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
+        /* The Bento Grid */
+        .work-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 0 8% 100px 8%;
+            max-width: 1600px;
+            margin: 0 auto;
         }
 
-        .wallpaper-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 24px;
             overflow: hidden;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            backdrop-filter: blur(10px);
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            text-decoration: none;
+            color: inherit;
         }
 
-        .wallpaper-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(0, 162, 255, 0.1);
+        .card:hover {
+            border-color: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.04);
+            transform: translateY(-5px);
         }
 
-        .preview-box {
-            height: 200px;
-            background: #111;
+        /* Main Featured Card */
+        .featured { grid-column: span 8; height: 500px; }
+        .side { grid-column: span 4; height: 500px; }
+        .wide { grid-column: span 12; height: 400px; margin-top: 10px; }
+
+        .card-preview {
+            height: 70%;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            color: #333;
+            background: radial-gradient(circle at center, #151515, #0a0a0a);
             position: relative;
+            overflow: hidden;
         }
 
-        /* Small version of your 3D text for the thumbnail */
-        .preview-text {
+        /* Abstract 3D Signature in Card */
+        .sig-3d {
+            font-size: 5rem;
             font-family: serif;
-            color: white;
-            text-shadow: 2px 2px 0 #222, 4px 4px 0 #111;
+            opacity: 0.8;
+            filter: blur(0.5px);
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .card-info {
-            padding: 20px;
-        }
-
-        .card-info h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.4rem;
-        }
-
-        .btn-group {
+        .card-content {
+            padding: 30px;
             display: flex;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: flex-end;
         }
 
-        .btn {
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
+        .card-title h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .card-title p {
+            color: var(--secondary);
             font-size: 0.9rem;
-            transition: 0.2s;
         }
 
-        .btn-primary {
+        .download-pill {
+            padding: 12px 24px;
             background: var(--accent);
-            color: white;
+            color: black;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: 0.3s;
         }
 
-        .btn-outline {
-            border: 1px solid #444;
-            color: #ccc;
-        }
-
-        .btn:hover {
-            filter: brightness(1.2);
+        .card:hover .download-pill {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
         }
 
         footer {
-            text-align: center;
-            padding: 60px 20px;
-            color: #444;
+            padding: 100px 8%;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            color: var(--secondary);
             font-size: 0.8rem;
+        }
+
+        @media (max-width: 900px) {
+            .featured, .side { grid-column: span 12; height: 400px; }
         }
     </style>
 </head>
 <body>
 
+    <nav>
+        <div class="logo">zhnqr.studio</div>
+        <div class="contact">
+            <span style="color: var(--secondary); font-size: 0.8rem;">Available for Desktop Curation</span>
+        </div>
+    </nav>
+
     <header>
-        <h1>𝓩𝖍𝖓𝖖𝖗</h1>
-        <p class="subtitle">Premium Interactive HTML Wallpapers for Lively</p>
+        <span class="eyebrow">The 2026 Collection</span>
+        <h1>Interactive sculptures<br>for your desktop.</h1>
     </header>
 
-    <div class="container">
-        <div class="wallpaper-card">
-            <div class="preview-box">
-                <span class="preview-text">𝓩𝖍𝖓𝖖𝖗</span>
+    <main class="work-grid">
+        
+        <a href="#" class="card featured">
+            <div class="card-preview">
+                <div class="sig-3d">𝓩𝖍𝖓𝖖𝖗</div>
             </div>
-            <div class="card-info">
-                <h3> Zhnqr 3d wallpaper</h3>
-                <p style="color: #777; font-size: 0.9rem; margin-bottom: 20px;">
-                    Our flagship 3D text wallpaper with mouse-reactive tilt and deep extrusion.
-                </p>
-                <div class="btn-group">
-                    <a href="#" class="btn btn-primary">Download</a>
-                    <a href="preview.html" class="btn btn-outline">Live Demo</a>
+            <div class="card-content">
+                <div class="card-title">
+                    <h3>Signature Ultra 3D</h3>
+                    <p>Physics-based depth & light refraction.</p>
+                </div>
+                <div class="download-pill">Get Wallpaper</div>
+            </div>
+        </a>
+
+        <div class="card side">
+            <div class="card-preview" style="background: #000;">
+                <div style="width: 40px; height: 40px; border: 1px solid #333; border-radius: 50%;"></div>
+            </div>
+            <div class="card-content">
+                <div class="card-title">
+                    <h3>Obsidian Flow</h3>
+                    <p>Coming Spring 2026</p>
                 </div>
             </div>
         </div>
 
-        <div class="wallpaper-card" style="opacity: 0.5;">
-            <div class="preview-box">Coming Soon</div>
-            <div class="card-info">
-                <h3>Coming Soon...</h3>
-                <p style="color: #777; font-size: 0.9rem; margin-bottom: 20px;">
-                    ...
-                </p>
+        <div class="card wide">
+            <div class="card-preview" style="background: linear-gradient(45deg, #0a0a0a, #111);">
+                <span style="color: #222; font-size: 10rem; font-weight: 900; letter-spacing: -10px;">ZHNQR</span>
+            </div>
+            <div class="card-content">
+                <div class="card-title">
+                    <h3>The Minimalist Series</h3>
+                    <p>High-contrast, zero-distraction environments.</p>
+                </div>
+                <div class="download-pill" style="background: none; border: 1px solid var(--border); color: white;">Coming Soon</div>
             </div>
         </div>
-    </div>
+
+    </main>
 
     <footer>
-        &copy; 2026 ZHNQR | All Rights Reserved. <br>
-        Built for Lively Wallpaper.
+        <div>&copy; 2026 ZHNQR STUDIO. ALL RIGHTS RESERVED.</div>
+        <div>BUILT FOR LIVELY WALLPAPER</div>
     </footer>
 
 </body>
