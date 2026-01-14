@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zhnqr | HTML Wallpapers</title>
+    <style>
+        :root {
+            --bg: #050505;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --accent: #00a2ff;
+            --text: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        header {
+            height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #111 0%, #050505 100%);
+        }
+
+        h1 {
+            font-size: 5rem;
+            margin: 0;
+            letter-spacing: -2px;
+            background: linear-gradient(to bottom, #fff, #444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: #888;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        /* Wallpaper Grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .wallpaper-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .wallpaper-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 162, 255, 0.1);
+        }
+
+        .preview-box {
+            height: 200px;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #333;
+            position: relative;
+        }
+
+        /* Small version of your 3D text for the thumbnail */
+        .preview-text {
+            font-family: serif;
+            color: white;
+            text-shadow: 2px 2px 0 #222, 4px 4px 0 #111;
+        }
+
+        .card-info {
+            padding: 20px;
+        }
+
+        .card-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.4rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-outline {
+            border: 1px solid #444;
+            color: #ccc;
+        }
+
+        .btn:hover {
+            filter: brightness(1.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: #444;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>𝓩𝖍𝖓𝖖𝖗</h1>
+        <p class="subtitle">Premium Interactive HTML Wallpapers for Lively</p>
+    </header>
+
+    <div class="container">
+        <div class="wallpaper-card">
+            <div class="preview-box">
+                <span class="preview-text">𝓩𝖍𝖓𝖖𝖗</span>
+            </div>
+            <div class="card-info">
+                <h3> Zhnqr 3d wallpaper</h3>
+                <p style="color: #777; font-size: 0.9rem; margin-bottom: 20px;">
+                    Our flagship 3D text wallpaper with mouse-reactive tilt and deep extrusion.
+                </p>
+                <div class="btn-group">
+                    <a href="#" class="btn btn-primary">Download</a>
+                    <a href="preview.html" class="btn btn-outline">Live Demo</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="wallpaper-card" style="opacity: 0.5;">
+            <div class="preview-box">Coming Soon</div>
+            <div class="card-info">
+                <h3>Coming Soon...</h3>
+                <p style="color: #777; font-size: 0.9rem; margin-bottom: 20px;">
+                    ...
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 ZHNQR | All Rights Reserved. <br>
+        Built for Lively Wallpaper.
+    </footer>
+
+</body>
+</html>
